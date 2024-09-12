@@ -1,34 +1,41 @@
-import Versions from './components/Versions'
-import electronLogo from './assets/electron.svg'
+import { useState } from 'react'
+import { NpcType } from './types/npc'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Home from './pages/Home'
+import Register from './pages/Register'
 
 function App(): JSX.Element {
-  const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+  //const ipcHandle = (): void => window.electron.ipcRenderer.send('ping')
+
+  const [imageFile, setImageFile] = useState<File | null>(null)
+  const [imageBuffer, setImageBuffer] = useState<Buffer | null>(null)
+
+  async function handleAddNpc() {
+    const npc: NpcType = {
+      name: 'Gorak',
+      race: 'Orc',
+      age: 30,
+      gender: 'Male',
+      class: 'Warrior',
+      description: 'A fierce warrior.'
+    }
+
+    // Chama a função do backend para adicionar o NPC com imagem
+    if (imageBuffer) {
+      window.api.addNpc(npc, Buffer.from(imageBuffer))
+    } else {
+      console.error('imageBuffer is null')
+      return
+    }
+  }
 
   return (
-    <>
-      <img alt="logo" className="logo" src={electronLogo} />
-      <div className="creator">Powered by electron-vite</div>
-      <div className="text">
-        Build an Electron app with <span className="react">React</span>
-        &nbsp;and <span className="ts">TypeScript</span>
-      </div>
-      <p className="tip">
-        Please try pressing <code>F12</code> to open the devTool
-      </p>
-      <div className="actions">
-        <div className="action">
-          <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">
-            Documentation
-          </a>
-        </div>
-        <div className="action">
-          <a target="_blank" rel="noreferrer" onClick={ipcHandle}>
-            Send IPC
-          </a>
-        </div>
-      </div>
-      <Versions></Versions>
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
   )
 }
 

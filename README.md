@@ -1,6 +1,6 @@
 # npc_manager
 
-An Electron application with React and TypeScript
+A tool made to RPG Masters that helps to manage npc's
 
 ## Recommended IDE Setup
 
