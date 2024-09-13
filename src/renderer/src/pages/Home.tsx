@@ -1,19 +1,28 @@
-import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { NpcType } from '../types/npc'
+import NpcCard from '@renderer/components/Home/NpcCard'
+import Layout from '@renderer/layout/Layout'
 
 const Home: React.FC = () => {
+  const [npcs, setNpcs] = useState<NpcType[]>([])
   useEffect(() => {
-    const fetchNpcs = async (): Promise<void> => {
-      const npc = await window.api.getNpcById(1)
-      console.log(npc)
+    const fetchNpcs = async (): Promise<NpcType[]> => {
+      const npcs = await window.api.getNpcs()
+      return npcs
     }
-    fetchNpcs()
+    fetchNpcs().then((npcsresponse) => setNpcs(npcsresponse))
   }, [])
 
   return (
-    <div className="w-full h-full bg-zinc-300">
-      <Link to="/register">Registro</Link>
-    </div>
+    <Layout>
+      <div className="w-full h-full">
+        <div className="h-full w-full flex items-center justify-center flex-wrap">
+          {npcs.map((npc, index) => (
+            <NpcCard npc={npc} key={index} />
+          ))}
+        </div>
+      </div>
+    </Layout>
   )
 }
 

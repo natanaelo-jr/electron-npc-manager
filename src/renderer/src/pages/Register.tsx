@@ -1,7 +1,7 @@
 import UploadImage from '@renderer/components/Register/UploadImage'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import { NpcType } from '../types/npc'
+import Layout from '@renderer/layout/Layout'
 
 const Register: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null)
@@ -45,22 +45,23 @@ const Register: React.FC = () => {
   }
 
   return (
-    <div className="w-screen h-screen">
-      <div className="w-full h-full bg-zinc-200 flex items-center flex-col gap-4 justify-center">
-        <Link to="/">HOME</Link>
-        <div className="flex items-center justify-center">
-          <UploadImage setImageFile={setImageFile} />
-          {imageFile && (
-            <button onClick={handleAddNpc}>
-              <div className="px-4 py-2 flex items-center bg-blue-800 rounded-md hover:blue-950 text-zinc-200">
-                Enviar
-              </div>
-            </button>
-          )}
+    <Layout>
+      <div className="w-full h-full">
+        <div className="w-full h-full flex items-center flex-col gap-4 justify-center">
+          <div className="flex items-center justify-center">
+            <UploadImage setImageFile={setImageFile} />
+            {imageFile && (
+              <button onClick={handleAddNpc}>
+                <div className="px-4 py-2 flex items-center bg-blue-800 rounded-md hover:blue-950 text-zinc-200">
+                  Enviar
+                </div>
+              </button>
+            )}
+          </div>
+          <h1 className="font-bold">Hello World</h1>
         </div>
-        <h1 className="font-bold">Hello World</h1>
       </div>
-    </div>
+    </Layout>
   )
 }
 
