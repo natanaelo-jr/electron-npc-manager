@@ -1,10 +1,15 @@
 import sqlite3 from 'sqlite3'
+import { app } from 'electron'
+import path from 'path'
 
 class Database {
   private db: sqlite3.Database
 
   constructor() {
-    this.db = new sqlite3.Database('./database.db', (err) => {
+    const userDataPath = app.getPath('userData')
+    const dbPath = path.join(userDataPath, 'database.db')
+
+    this.db = new sqlite3.Database(dbPath, (err) => {
       if (err) {
         console.error(err.message)
       } else {

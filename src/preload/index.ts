@@ -9,7 +9,12 @@ const api = {
   addNpc: (npc: NpcType, imageBuffer: Uint8Array): Promise<NpcType> =>
     ipcRenderer.invoke('add-npc', npc, imageBuffer),
 
-  getNpcById: (id: number): Promise<NpcType> => ipcRenderer.invoke('get-npc', id)
+  getNpcById: (id: number): Promise<NpcType> => ipcRenderer.invoke('get-npc', id),
+
+  deleteNpc: (id: number): Promise<boolean> => ipcRenderer.invoke('delete-npc', id),
+
+  editNpc: (attribute: string, value: string, id: number): Promise<boolean> =>
+    ipcRenderer.invoke('edit-npc', attribute, value, id)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

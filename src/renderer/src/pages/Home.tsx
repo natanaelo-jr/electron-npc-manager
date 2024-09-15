@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   return (
     <Layout>
       <div className="w-full h-full">
-        <div className="h-full w-full flex items-center justify-center flex-wrap">
+        <div className="h-fit w-fit gap-10 py-12 px-16 flex items-center justify-center flex-wrap">
           {npcs.map((npc, index) => (
             <NpcCard npc={npc} key={index} />
           ))}

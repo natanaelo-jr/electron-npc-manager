@@ -3,6 +3,16 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { registerIPCHandlers } from './backend/ipcHandlers'
+const express = require('express')
+const expressServer = express()
+const imagesPath = join(app.getPath('userData'), 'images')
+
+expressServer.use('/images', express.static(imagesPath))
+const PORT = 3000
+
+expressServer.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}/`)
+})
 
 function createWindow(): void {
   // Create the browser window.

@@ -8,6 +8,8 @@ declare global {
       getNpcs: () => Promise<NpcType[]>
       addNpc: (npc: NpcType, imageBuffer: Uint8Array) => Promise<NpcType>
       getNpcById: (id: number) => Promise<NpcType>
+      deleteNpc: (id: number) => Promise<boolean>
+      editNpc: (attribute: string, value: string, id: number) => Promise<boolean>
     }
   }
 }
